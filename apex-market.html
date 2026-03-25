@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Apex Market — Premium Tech Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0f172a;
+    --bg-card:   #1e293b;
+    --border:    rgba(255,255,255,0.1);
+    --blue:      #3b82f6;
+    --blue-dark: #2563eb;
+    --green:     #25D366;
+    --green-dark:#20c05a;
+    --text:      #f8fafc;
+    --muted:     #94a3b8;
+    --font:      'Inter', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { text-decoration: none; color: inherit; }
+  img { display: block; width: 100%; }
+
+  /* ── Nav ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,23,42,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px; }
+  .logo span { color: var(--blue); }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 0.5rem; font-family: var(--font); font-weight: 600;
+    border: none; border-radius: 12px; cursor: pointer;
+    transition: all 0.18s ease; text-decoration: none;
+    min-height: 44px; padding: 0.65rem 1.5rem; font-size: 0.9rem;
+  }
+  .btn:active { transform: scale(0.97); }
+
+  .btn-blue  { background: var(--blue);  color: #fff; }
+  .btn-blue:hover  { background: var(--blue-dark); }
+
+  .btn-green { background: var(--green); color: #fff; }
+  .btn-green:hover { background: var(--green-dark); }
+
+  .btn-outline {
+    background: transparent; color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.4); }
+
+  .btn-lg  { padding: 1rem 2rem; font-size: 1rem; min-height: 52px; }
+  .btn-full { width: 100%; }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative; overflow: hidden;
+    text-align: center; padding: 6rem 1.5rem;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.3);
+    color: var(--blue); font-size: 0.8rem; font-weight: 600;
+    padding: 0.4rem 1rem; border-radius: 99px; margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    font-weight: 800; line-height: 1.15;
+    letter-spacing: -1px; margin-bottom: 1.25rem;
+  }
+  .hero h1 span { color: var(--blue); }
+  .hero p {
+    font-size: 1.1rem; color: var(--muted);
+    max-width: 520px; margin: 0 auto 2.5rem;
+  }
+  .hero p strong { color: var(--text); }
+  .hero-btns {
+    display: flex; gap: 0.75rem;
+    justify-content: center; flex-wrap: wrap;
+  }
+
+  /* ── Trust Bar ── */
+  .trust {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+  .trust-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .trust-item {
+    display: flex; flex-direction: column;
+    align-items: center; text-align: center; gap: 0.6rem;
+  }
+  .trust-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+  }
+  .trust-item strong { font-size: 0.9rem; color: var(--text); }
+  .trust-item small  { font-size: 0.78rem; color: var(--muted); }
+
+  /* ── Products ── */
+  .section { max-width: 1100px; margin: 0 auto; padding: 5rem 1.5rem; }
+  .section-head { text-align: center; margin-bottom: 3rem; }
+  .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; margin-bottom: 0.5rem; }
+  .section-head p  { color: var(--muted); }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px; overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .card:hover {
+    border-color: rgba(59,130,246,0.4);
+    transform: translateY(-4px);
+  }
+  .card-img { position: relative; }
+  .card-img img { height: 200px; object-fit: cover; }
+  .card-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--green); color: #fff;
+    font-size: 0.72rem; font-weight: 700;
+    padding: 0.25rem 0.65rem; border-radius: 99px;
+  }
+  .card-body {
+    padding: 1.25rem; display: flex;
+    flex-direction: column; gap: 1rem; flex: 1;
+  }
+  .card-name  { font-size: 1.05rem; font-weight: 700; }
+  .card-price { font-size: 1.5rem; font-weight: 800; color: var(--blue); }
+
+  .card-benefits { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; flex: 1; }
+  .card-benefits li {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.85rem; color: #cbd5e1;
+  }
+  .card-benefits li::before {
+    content: '✓'; color: var(--green);
+    font-weight: 700; font-size: 0.8rem; flex-shrink: 0;
+  }
+
+  /* ── Why Section ── */
+  .why { background: rgba(255,255,255,0.02); border-top: 1px solid var(--border); }
+  .why-inner {
+    max-width: 1100px; margin: 0 auto; padding: 5rem 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .why-left h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    font-weight: 800; line-height: 1.2; margin-bottom: 0.75rem;
+  }
+  .why-left h2 span { color: var(--blue); }
+  .why-left > p { color: var(--muted); margin-bottom: 2rem; }
+  .why-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .why-item { display: flex; gap: 1rem; }
+  .why-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    border-radius: 10px;
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; margin-top: 2px;
+  }
+  .why-item strong { display: block; font-size: 0.95rem; margin-bottom: 0.2rem; }
+  .why-item p { font-size: 0.85rem; color: var(--muted); }
+
+  /* ── Testimonial card ── */
+  .testimonial-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px; padding: 2.5rem;
+    text-align: center;
+  }
+  .stat-num { font-size: 3rem; font-weight: 800; color: var(--blue); }
+  .stat-label { color: #cbd5e1; font-weight: 500; margin-bottom: 1.25rem; }
+  .stars { font-size: 1.2rem; color: #facc15; margin-bottom: 1.25rem; letter-spacing: 2px; }
+  .quote { font-size: 0.9rem; color: var(--muted); font-style: italic; margin-bottom: 2rem; }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--border);
+    text-align: center; padding: 2rem 1.5rem;
+    color: var(--muted); font-size: 0.85rem;
+  }
+  footer p + p { margin-top: 0.25rem; }
+
+  /* ── Sticky mobile CTA ── */
+  .sticky-cta {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(15,23,42,0.97);
+    border-top: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+  }
+  .mobile-spacer { display: none; height: 80px; }
+
+  /* ── WhatsApp icon SVG ── */
+  .wa-icon { width: 18px; height: 18px; flex-shrink: 0; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .trust-inner { grid-template-columns: 1fr; }
+    .why-inner   { grid-template-columns: 1fr; gap: 2.5rem; }
+    .sticky-cta  { display: block; }
+    .mobile-spacer { display: block; }
+    .nav-chat { display: none; }
+  }
+  @media (max-width: 480px) {
+    .hero { padding: 4rem 1rem; }
+    .hero-btns .btn-lg { padding: 0.85rem 1.25rem; font-size: 0.9rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Apex<span>Market</span></div>
+    <a class="btn btn-green nav-chat"
+       href="https://wa.me/254712646907?text=Hi!%20I'd%20like%20to%20know%20more%20about%20Apex%20Market."
+       target="_blank">
+      <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.522 5.852L.057 23.625a.75.75 0 0 0 .918.918l5.773-1.465A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.693 9.693 0 0 1-4.953-1.357l-.355-.211-3.67.932.948-3.567-.231-.368A9.693 9.693 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+      Chat with Us
+    </a>
+  </div>
+</nav>
+
+<!-- ══ HERO ═════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-badge">★ Nairobi's Most Trusted Tech Store</div>
+  <h1>Premium Quality.<br><span>Delivered to Your Door.</span></h1>
+  <p>The best tech and lifestyle essentials at Apex Market. <strong>7-day replacement warranty included.</strong></p>
+  <div class="hero-btns">
+    <a class="btn btn-blue btn-lg" href="#products">Browse Products</a>
+    <a class="btn btn-outline btn-lg"
+       href="https://wa.me/254712646907?text=Hi!%20I'd%20like%20to%20learn%20more%20about%20Apex%20Market."
+       target="_blank">
+      <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.522 5.852L.057 23.625a.75.75 0 0 0 .918.918l5.773-1.465A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.693 9.693 0 0 1-4.953-1.357l-.355-.211-3.67.932.948-3.567-.231-.368A9.693 9.693 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+      Talk to Us
+    </a>
+  </div>
+</section>
+
+<!-- ══ TRUST BAR ═════════════════════════════════ -->
+<div class="trust">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <div class="trust-icon">🛡️</div>
+      <strong>7-Day Replacement Warranty</strong>
+      <small>No questions asked</small>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🚚</div>
+      <strong>Fast Nationwide Delivery</strong>
+      <small>24–48 hours to your door</small>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">💳</div>
+      <strong>Pay on Delivery Available</strong>
+      <small>No upfront risk</small>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PRODUCTS ══════════════════════════════════ -->
+<div class="section" id="products">
+  <div class="section-head">
+    <h2>Featured Products</h2>
+    <p>Hand-picked, quality-tested, ready to ship.</p>
+  </div>
+  <div class="products-grid">
+
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400&h=200&fit=crop" alt="AirPods Pro Max" />
+        <span class="card-badge">Best Seller</span>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">AirPods Pro Max</div>
+          <div class="card-price">KSh 4,500</div>
+        </div>
+        <ul class="card-benefits">
+          <li>40hr Battery Life</li>
+          <li>Active Noise Cancellation</li>
+          <li>Premium Sound Quality</li>
+        </ul>
+        <a class="btn btn-green btn-full"
+           href="https://wa.me/254712646907?text=Hi!%20I'd%20like%20to%20order%20the%20AirPods%20Pro%20Max%20(KSh%204%2C500).%20Please%20assist%20me."
+           target="_blank">
+          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.522 5.852L.057 23.625a.75.75 0 0 0 .918.918l5.773-1.465A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.693 9.693 0 0 1-4.953-1.357l-.355-.211-3.67.932.948-3.567-.231-.368A9.693 9.693 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+          Order on WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=200&fit=crop" alt="Smart Watch Series X" />
+        <span class="card-badge">In Stock</span>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Smart Watch Series X</div>
+          <div class="card-price">KSh 7,200</div>
+        </div>
+        <ul class="card-benefits">
+          <li>Health &amp; Fitness Tracking</li>
+          <li>7-Day Battery Life</li>
+          <li>Water Resistant IP68</li>
+        </ul>
+        <a class="btn btn-green btn-full"
+           href="https://wa.me/254712646907?text=Hi!%20I'd%20like%20to%20order%20the%20Smart%20Watch%20Series%20X%20(KSh%207%2C200).%20Please%20assist%20me."
+           target="_blank">
+          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.522 5.852L.057 23.625a.75.75 0 0 0 .918.918l5.773-1.465A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.693 9.693 0 0 1-4.953-1.357l-.355-.211-3.67.932.948-3.567-.231-.368A9.693 9.693 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+          Order on WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=200&fit=crop" alt="Wireless Charging Pad" />
+        <span class="card-badge">In Stock</span>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Wireless Charging Pad</div>
+          <div class="card-price">KSh 2,800</div>
+        </div>
+        <ul class="card-benefits">
+          <li>15W Fast Charging</li>
+          <li>Universal Qi Compatible</li>
+          <li>Sleek Slim Design</li>
+        </ul>
+        <a class="btn btn-green btn-full"
+           href="https://wa.me/254712646907?text=Hi!%20I'd%20like%20to%20order%20the%20Wireless%20Charging%20Pad%20(KSh%202%2C800).%20Please%20assist%20me."
+           target="_blank">
+          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.522 5.852L.057 23.625a.75.75 0 0 0 .918.918l5.773-1.465A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.693 9.693 0 0 1-4.953-1.357l-.355-.211-3.67.932.948-3.567-.231-.368A9.693 9.693 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+          Order on WhatsApp
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ WHY APEX ══════════════════════════════════ -->
+<div class="why">
+  <div class="why-inner">
+    <div class="why-left">
+      <h2>Why Nairobi's Smartest Shoppers <span>Choose Apex.</span></h2>
+      <p>We're not just a store. We're your trusted tech partner.</p>
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-icon">📦</div>
+          <div>
+            <strong>Verified Quality</strong>
+            <p>Every product is hand-tested before it reaches you.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">🛡️</div>
+          <div>
+            <strong>7-Day Promise</strong>
+            <p>No-fuss replacement warranty on every order.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">💬</div>
+          <div>
+            <strong>Real Conversations</strong>
+            <p>Talk to a human, not a bot. We're always on WhatsApp.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">⚡</div>
+          <div>
+            <strong>Fast Delivery</strong>
+            <p>Receive your order within 24–48 hours in Nairobi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Happy customers in Nairobi</div>
+      <div class="stars">★★★★★</div>
+      <p class="quote">"Fast delivery, genuine product, and great customer support. Will order again!"</p>
+      <a class="btn btn-green btn-lg btn-full"
+         href="https://wa.me/254712646907?text=Hi!%20I'd%20like%20to%20place%20an%20order%20with%20Apex%20Market."
+         target="_blank">
+        <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.522 5.852L.057 23.625a.75.75 0 0 0 .918.918l5.773-1.465A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.693 9.693 0 0 1-4.953-1.357l-.355-.211-3.67.932.948-3.567-.231-.368A9.693 9.693 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+        Order via WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ════════════════════════════════════ -->
+<footer>
+  <p>© 2025 Apex Market. All rights reserved.</p>
+  <p>Nairobi, Kenya · WhatsApp: +254 700 000 000</p>
+</footer>
+
+<!-- ══ STICKY MOBILE CTA ═════════════════════════ -->
+<div class="sticky-cta">
+  <a class="btn btn-green btn-lg btn-full"
+     href="https://wa.me/254712646907?text=Hi!%20I'd%20like%20to%20place%20an%20order%20with%20Apex%20Market."
+     target="_blank">
+    <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.522 5.852L.057 23.625a.75.75 0 0 0 .918.918l5.773-1.465A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.693 9.693 0 0 1-4.953-1.357l-.355-.211-3.67.932.948-3.567-.231-.368A9.693 9.693 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+    Order via WhatsApp
+  </a>
+</div>
+<div class="mobile-spacer"></div>
+
+</body>
+</html>
